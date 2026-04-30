@@ -7,3 +7,4 @@ uploads/
 dist/
 /server-*
 /drizzle-*/
+.cursor/rules/global*.mdc
