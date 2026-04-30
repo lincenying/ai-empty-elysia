@@ -4,6 +4,7 @@ import { Elysia } from 'elysia'
 
 import { config } from '~/config'
 import { logger } from '~/utils/logger'
+import { createStaticConfig } from './plugins/static'
 
 const app = new Elysia({
     serve: {
@@ -11,6 +12,7 @@ const app = new Elysia({
     },
 })
     .use(serverTiming())
+    .use(createStaticConfig())
 
 app.listen(config.server.port)
 
