@@ -12,7 +12,6 @@ const app = new Elysia({
 })
     .use(serverTiming())
 
-
 app.listen(config.server.port)
 
 // 获取正确的访问信息
