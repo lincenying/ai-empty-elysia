@@ -67,7 +67,7 @@ export const configSchema = {
         name: {
             doc: '应用程序名称',
             format: String,
-            default: 'MMF Blog API',
+            default: 'Elysia API Template',
             env: 'APP_NAME',
         },
         version: {
@@ -163,7 +163,7 @@ export const configSchema = {
         title: {
             doc: 'API文档标题',
             format: String,
-            default: 'MMF Blog API',
+            default: 'Elysia API Template',
             env: 'SWAGGER_TITLE',
         },
         version: {
@@ -191,8 +191,20 @@ export const configSchema = {
         prefix: {
             doc: '静态资源URL前缀',
             format: String,
-            default: '/static',
+            default: '/public',
             env: 'STATIC_PREFIX',
+        },
+        uploadsPath: {
+            doc: '用户上传目录（相对于项目根目录）',
+            format: String,
+            default: './uploads',
+            env: 'STATIC_UPLOADS_PATH',
+        },
+        uploadsPrefix: {
+            doc: '上传文件 URL 前缀',
+            format: String,
+            default: '/uploads',
+            env: 'STATIC_UPLOADS_PREFIX',
         },
     },
 
@@ -205,6 +217,12 @@ export const configSchema = {
 
     // 数据库配置
     db: {
+        dialect: {
+            doc: '数据库方言：auto 按环境选择；可强制 sqlite 或 postgres',
+            format: ['auto', 'sqlite', 'postgres'],
+            default: 'auto',
+            env: 'DB_DIALECT',
+        },
         sqlite: {
             doc: 'SQLite 文件路径',
             format: String,
@@ -232,13 +250,13 @@ export const configSchema = {
         postgre_password: {
             doc: 'PostgreSQL 密码',
             format: String,
-            default: '113511000',
+            default: 'dev_only_change_me',
             env: 'POSTGRES_PASSWORD',
         },
         postgre_db: {
             doc: 'PostgreSQL 数据库',
             format: String,
-            default: 'mmfblog_v2',
+            default: 'app',
             env: 'POSTGRES_DB',
         },
     },

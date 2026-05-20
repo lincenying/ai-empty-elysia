@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键构建并启动生产栈：先起 PostgreSQL，再显式跑迁移（幂等），最后启动 API/Web（API 入口仍会再跑一次迁移，同为幂等）
+# 一键构建并启动生产栈：先起 PostgreSQL，再整体 compose up（API 入口可选执行迁移）
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,7 +15,7 @@ echo ">>> docker compose ${COMPOSE_FILES[*]} build"
 docker compose "${COMPOSE_FILES[@]}" build
 
 PG_USER="postgres"
-PG_DB="mmfblog_v2"
+PG_DB="app"
 echo ">>> 等待 PostgreSQL 就绪 (${PG_USER} / ${PG_DB})"
 pg_ok=0
 for _ in $(seq 1 60); do
@@ -33,9 +33,9 @@ fi
 echo ">>> docker compose ${COMPOSE_FILES[*]} up -d"
 docker compose "${COMPOSE_FILES[@]}" up -d
 
-WEB_PORT="4080"
+WEB_PORT="${APP_PORT:-4000}"
 echo ""
-echo "已启动。前端: http://localhost:${WEB_PORT}"
+echo "已启动。API: http://localhost:${WEB_PORT}"
 echo "查看日志: docker compose ${COMPOSE_FILES[*]} logs -f api_bun"
 echo "停止服务: docker compose ${COMPOSE_FILES[*]} down"
 echo ""

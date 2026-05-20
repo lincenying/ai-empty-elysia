@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
 
-echo "[entrypoint] applying migrations"
-bun run db:postgre:generate
-bun run db:postgre:migrate
+if [ "${SKIP_DB_MIGRATE:-0}" != "1" ]; then
+    echo "[entrypoint] applying postgres migrations"
+    bun run db:postgre:migrate
+fi
 
-echo "[entrypoint] starting API"
 exec "$@"

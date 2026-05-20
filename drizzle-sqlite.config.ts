@@ -1,12 +1,13 @@
-/* eslint-disable node/prefer-global/process */
 import { defineConfig } from 'drizzle-kit'
+
+import { config } from './src/config/index'
 
 export default defineConfig({
     dialect: 'sqlite',
-    schema: './src/schema/bun-sqlite.ts',
+    schema: './src/db/schema/sqlite/index.ts',
     out: './drizzle-sqlite',
     dbCredentials: {
-        url: process.env.SQLITE_DB_URL!,
+        url: config.db.sqlite,
     },
     verbose: true,
     strict: true,
