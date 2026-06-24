@@ -21,8 +21,7 @@ export const accessLoggerMiddleware = new Elysia({ name: 'access-logger' })
         const userAgent = request.headers.get('user-agent') ?? '未知'
 
         // 创建客户端标识字符串，截断过长的 User-Agent
-        const clientInfo
-            = userAgent !== '未知' ? `${userAgent.substring(0, 80)}${userAgent.length > 80 ? '...' : ''}` : '未知客户端'
+        const clientInfo = userAgent !== '未知' ? `${userAgent.substring(0, 80)}${userAgent.length > 80 ? '...' : ''}` : '未知客户端'
 
         return {
             startTime,
@@ -58,8 +57,7 @@ export const accessLoggerMiddleware = new Elysia({ name: 'access-logger' })
 
         // 根据状态码选择不同的图标和颜色指示
         const statusIcon = status >= 400 ? '❌' : status >= 300 ? '🔄' : '✅'
-        const statusText
-            = status >= 400 ? '错误' : status >= 300 ? '重定向' : '成功'
+        const statusText = status >= 400 ? '错误' : status >= 300 ? '重定向' : '成功'
 
         // 记录请求完成
         if (!request.url.includes('/sm/')) {

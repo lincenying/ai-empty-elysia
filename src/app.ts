@@ -31,6 +31,16 @@ function ensureRuntimeAssetDirs() {
  */
 export function createApp() {
     ensureRuntimeAssetDirs()
+    /**
+     * 服务端处理性能指标
+     * 插件装配顺序：
+     * 1. serverTiming：服务器性能指标记录
+     * 2. createCorsConfig：CORS 配置
+     * 3. accessLoggerMiddleware：访问日志记录
+     * 4. swagger：Swagger 文档
+     * 5. responseWrapperMiddleware：响应包装
+     * 6. healthController：健康检查
+     */
     let app = new Elysia({
         serve: {
             maxRequestBodySize: 1024 * 1024 * 256, // 256MB
